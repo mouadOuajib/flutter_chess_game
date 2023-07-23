@@ -17,7 +17,14 @@ class _ChessGameState extends State<ChessGame> {
     _initializeBoard();
   }  
 
+  ChessPiece? selectedPiece ;
+  int selectedRow = -1;
+  int selectedCol =-1;
+  List<List<int>> valideMoves = [];
+
+
   void _initializeBoard(){
+
     List<List<ChessPiece?>> newBoard = List.generate(8, (index) => List<ChessPiece?>.filled(8, null));
     //place pawn
     for(int i=0; i<8;i++){
@@ -48,7 +55,57 @@ class _ChessGameState extends State<ChessGame> {
 
     board = newBoard;
   }
+  //user selected a piece
+  void pieceSelected(int row ,int col){
+    setState(() {
+      if(board[row][col]!=null){
+        selectedPiece = board[row][col];
+        selectedRow = row;
+        selectedCol = col;
+      }
+    });
+    valideMoves = checkValideMoves(selectedRow,selectedCol,selectedPiece);
+  }
   late List<List<ChessPiece?>> board;
+
+  List<List<int>> checkValideMoves(int row ,int col,ChessPiece? piece){
+    List<List<int>> candidateMoves =  [];
+    int direction = piece!.isWhite? -1:1;
+
+    switch(piece.type){
+      case ChessPieceType.pawn:
+        //pawn can move forward if the sqaur is not accupied
+        if(isInBoard(row + direction, col)&& board[row+direction][col]== null){
+          candidateMoves.add([row+direction,col]);
+        }
+        //pawn can move two position if he is in the initial position
+        if((row ==1 && !piece.isWhite)||(row ==6 && piece.isWhite)){
+          if(isInBoard(row+2*direction, col)&&board[row+2*direction][col]==null && board[row+direction][col]==null){
+            candidateMoves.add([row+2*direction,col]);
+          }
+        }
+        //pawn can kill diagonally
+        if(isInBoard(row+direction, col -1)&& board[row+direction][col-1]!=null&& board[row+direction][col-1]!.isWhite){
+          candidateMoves.add([row+direction,col-1]);
+        }
+        if(isInBoard(row+direction, col +1)&& board[row+direction][col+1]!=null&& board[row+direction][col+1]!.isWhite){
+          candidateMoves.add([row+direction,col+1]);
+        }
+        break;
+      case ChessPieceType.rook:
+        break;
+      case ChessPieceType.king:
+        break;
+      case ChessPieceType.queen:
+        break;
+      case ChessPieceType.knight:
+        break;
+      case ChessPieceType.bishop:
+        break;
+    }
+
+    return candidateMoves;
+  }
 
   // ChessPiece pawn = const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/whitepieces/pawn.png");
 
@@ -64,8 +121,15 @@ class _ChessGameState extends State<ChessGame> {
         itemBuilder: (BuildContext context, int index) {
           int row = index ~/8;
           int col = index % 8;
+          bool isSelected = selectedRow == row && selectedCol == col;
+          bool isValide = false;
+          for(var position in valideMoves){
+            if(position[0]==row&&position[1]==col){
+              isValide = true;
+            }
+          }
 
-          return Squar(isWhite: isWhite(index),piece: board[row][col],);
+          return Squar(isWhite: isWhite(index),piece: board[row][col],isSelected: isSelected,ontap: ()=> pieceSelected(row, col),isValideMove: isValide,);
         },
       ),
     );
