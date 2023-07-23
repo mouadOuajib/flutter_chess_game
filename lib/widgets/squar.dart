@@ -14,7 +14,7 @@ class Squar extends StatelessWidget {
       color: isWhite? backgroundColor:foregroundColor,
       child: piece != null ? Center(child: SizedBox(
         height: 30,
-        child: Image.asset(piece!.imagePath,color: isWhite? Colors.white:Colors.black,))):null,
+        child: Image.asset(piece!.imagePath,color: piece!.isWhite? Colors.white:Colors.black,))):null,
     );
   }
 }

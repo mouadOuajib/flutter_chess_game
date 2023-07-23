@@ -14,13 +14,43 @@ class _ChessGameState extends State<ChessGame> {
   @override
   void initState() {
     super.initState();
-    _initializeboard();
+    _initializeBoard();
+  }  
+
+  void _initializeBoard(){
+    List<List<ChessPiece?>> newBoard = List.generate(8, (index) => List<ChessPiece?>.filled(8, null));
+    //place pawn
+    for(int i=0; i<8;i++){
+      newBoard[1][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: false, imagePath: "assets/whitepieces/pawn.png");
+      newBoard[6][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/whitepieces/pawn.png");
+    }
+    //place rooks 
+    newBoard[0][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: false);
+    newBoard[0][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: false);
+    newBoard[7][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: true);
+    newBoard[7][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: true);
+    //place knights
+    newBoard[0][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: false);
+    newBoard[0][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: false);
+    newBoard[7][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: true);
+    newBoard[7][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: true);
+    //place bishop
+    newBoard[0][2] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/bishop.png",isWhite: false);
+    newBoard[0][5] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/bishop.png",isWhite: false);
+    newBoard[7][2] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/bishop.png",isWhite: true);
+    newBoard[7][5] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/bishop.png",isWhite: true);
+    //place queen
+    newBoard[0][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/whitepieces/queen.png",isWhite: false);
+    newBoard[7][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/whitepieces/queen.png",isWhite: true);
+    //place king
+    newBoard[0][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/whitepieces/king.png",isWhite: false);
+    newBoard[7][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/whitepieces/king.png",isWhite: true);
+
+    board = newBoard;
   }
+  late List<List<ChessPiece?>> board;
 
-  void _initializeboard(){}
-  late List<List<ChessPiece>> board;
-
-  ChessPiece pawn = const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/whitepieces/pawn.png");
+  // ChessPiece pawn = const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/whitepieces/pawn.png");
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +62,10 @@ class _ChessGameState extends State<ChessGame> {
         ),
         itemCount: 8*8,
         itemBuilder: (BuildContext context, int index) {
-          return Squar(isWhite: isWhite(index),piece: pawn,);
+          int row = index ~/8;
+          int col = index % 8;
+
+          return Squar(isWhite: isWhite(index),piece: board[row][col],);
         },
       ),
     );
