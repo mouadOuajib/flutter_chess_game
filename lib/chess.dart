@@ -429,7 +429,7 @@ class _ChessGameState extends State<ChessGame> {
         }
         List<List<int>> piecesValidMoves = checkRealValideMoves(i, j, board[i][j], true);
         //if there is any valide move then it not check mate 
-        if(piecesValidMoves.isEmpty){
+        if(piecesValidMoves.isNotEmpty){
           return false;
         }
       }
