@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class DeadPiece extends StatelessWidget {
@@ -7,7 +9,7 @@ class DeadPiece extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 15,
       width: 15,
       child: Image.asset(imagePath,color: isWhite? Colors.white:Colors.black,));
