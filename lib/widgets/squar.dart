@@ -15,17 +15,21 @@ class Squar extends StatelessWidget {
     Color? squarColor;
 
     if(isSelected){
-      squarColor =Colors.redAccent;
+      squarColor =Colors.grey;
     }else if (isValideMove){
-      squarColor == Colors.red;
+      squarColor = Colors.grey.withOpacity(0.7);
     }else{
-      squarColor = isWhite? foregroundColor:backgroundColor;
+      squarColor = isWhite? Colors.amber:backgroundColor;
     }
     return InkWell(
       onTap: ontap,
       child: Container(
+        // margin: EdgeInsets.all(isValideMove?2:0),
         height: MediaQuery.of(context).size.height*0.5,
-        color: squarColor,
+        decoration: BoxDecoration(
+          color:squarColor ,
+          border: Border.all(color: Colors.black.withOpacity(0.5),width: 0.001)
+        ),
         child: piece != null ? Center(child: SizedBox(
           height: 30,
           child: Image.asset(piece!.imagePath,color: piece!.isWhite? Colors.white:Colors.black,))):null,
