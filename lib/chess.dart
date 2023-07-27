@@ -42,30 +42,30 @@ class _ChessGameState extends State<ChessGame> {
 
     //place pawn
     for(int i=0; i<8;i++){
-      newBoard[1][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: false, imagePath: "assets/whitepieces/pawn.png");
-      newBoard[6][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/whitepieces/pawn.png");
+      newBoard[1][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: false, imagePath: "assets/blackpieces/pawn.png");
+      newBoard[6][i]= const ChessPiece(type: ChessPieceType.pawn, isWhite: true, imagePath: "assets/blackpieces/pawn.png");
     }
     //place rooks 
-    newBoard[0][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: false);
-    newBoard[0][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: false);
-    newBoard[7][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: true);
-    newBoard[7][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/whitepieces/rook.png",isWhite: true);
+    newBoard[0][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/blackpieces/rook.png",isWhite: false);
+    newBoard[0][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/blackpieces/rook.png",isWhite: false);
+    newBoard[7][0] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/blackpieces/rook.png",isWhite: true);
+    newBoard[7][7] = const ChessPiece(type: ChessPieceType.rook,imagePath: "assets/blackpieces/rook.png",isWhite: true);
     //place knights
-    newBoard[0][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: false);
-    newBoard[0][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: false);
-    newBoard[7][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: true);
-    newBoard[7][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/whitepieces/knight.png",isWhite: true);
+    newBoard[0][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/blackpieces/knight.png",isWhite: false);
+    newBoard[0][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/blackpieces/knight.png",isWhite: false);
+    newBoard[7][1] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/blackpieces/knight.png",isWhite: true);
+    newBoard[7][6] = const ChessPiece(type: ChessPieceType.knight,imagePath: "assets/blackpieces/knight.png",isWhite: true);
     //place bishop
-    newBoard[0][2] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/whitepieces/bishop.png",isWhite: false);
-    newBoard[0][5] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/whitepieces/bishop.png",isWhite: false);
-    newBoard[7][2] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/whitepieces/bishop.png",isWhite: true);
-    newBoard[7][5] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/whitepieces/bishop.png",isWhite: true);
+    newBoard[0][2] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/blackpieces/bishop.png",isWhite: false);
+    newBoard[0][5] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/blackpieces/bishop.png",isWhite: false);
+    newBoard[7][2] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/blackpieces/bishop.png",isWhite: true);
+    newBoard[7][5] = const ChessPiece(type: ChessPieceType.bishop,imagePath: "assets/blackpieces/bishop.png",isWhite: true);
     //place queen
-    newBoard[0][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/whitepieces/queen.png",isWhite: false);
-    newBoard[7][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/whitepieces/queen.png",isWhite: true);
+    newBoard[0][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/blackpieces/queen.png",isWhite: false);
+    newBoard[7][3] = const ChessPiece(type: ChessPieceType.queen,imagePath: "assets/blackpieces/queen.png",isWhite: true);
     //place king
-    newBoard[0][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/whitepieces/king.png",isWhite: false);
-    newBoard[7][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/whitepieces/king.png",isWhite: true);
+    newBoard[0][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/blackpieces/king.png",isWhite: false);
+    newBoard[7][4] = const ChessPiece(type: ChessPieceType.king,imagePath: "assets/blackpieces/king.png",isWhite: true);
 
     board = newBoard;
   }
@@ -460,6 +460,7 @@ class _ChessGameState extends State<ChessGame> {
       body: Column(
         children: [
           Expanded(child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 8,
             ),
@@ -488,13 +489,15 @@ class _ChessGameState extends State<ChessGame> {
                     isValide = true;
                   }
                 }
-          
-                return Squar(isWhite: isWhite(index),piece: board[row][col],isSelected: isSelected,ontap: ()=> pieceSelected(row, col),isValideMove: isValide,);
+                return 
+                    Squar(isWhite: isWhite(index),piece: board[row][col],isSelected: isSelected,ontap: ()=> pieceSelected(row, col),isValideMove: isValide,);
+                  
               },
             ),
           ),
           Text(checkStatus? "Check mate ...":""),
           Expanded(child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 8,
             ),

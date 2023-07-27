@@ -19,7 +19,7 @@ class Squar extends StatelessWidget {
     }else if (isValideMove){
       squarColor = Colors.grey.withOpacity(0.7);
     }else{
-      squarColor = isWhite? Colors.amber:backgroundColor;
+      squarColor = isWhite? foregroundColor:backgroundColor;
     }
     return InkWell(
       onTap: ontap,
